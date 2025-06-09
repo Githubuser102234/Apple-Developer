@@ -6,7 +6,7 @@
   
   <!-- iOS Web App Support -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="iBoot" />
 
   <!-- Shortcut icon and Apple Touch Icon -->
@@ -221,9 +221,9 @@
         loadingScreen.style.display = 'none';
         finalMessage.style.display = 'block';
 
-        // After 4 seconds, redirect to App Store home page
+        // After 4 seconds, redirect to App Store app on iPhone
         setTimeout(() => {
-          window.location.href = 'https://www.apple.com/app-store/';
+          window.location.href = 'itms-apps://';
         }, 4000);
 
       }, 3000);
