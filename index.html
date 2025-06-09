@@ -221,16 +221,18 @@
         loadingScreen.style.display = 'none';
         finalMessage.style.display = 'block';
 
-        // After 4 seconds, redirect to Apple App Store
+        // After 4 seconds, redirect to App Store home page
         setTimeout(() => {
-          window.location.href = 'https://apps.apple.com/us/app/apple-store/id375380948';
+          window.location.href = 'https://www.apple.com/app-store/';
         }, 4000);
 
       }, 3000);
     });
 
     noBtn.addEventListener('click', () => {
-      alert('Canceled.');
+      // Blank the entire screen by removing all content and setting black background
+      document.body.innerHTML = '';
+      document.body.style.backgroundColor = 'black';
     });
   </script>
 
