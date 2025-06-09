@@ -6,7 +6,7 @@
   
   <!-- iOS Web App Support -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <meta name="apple-mobile-web-app-title" content="iBoot" />
   <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" />
 
@@ -128,6 +128,30 @@
       outline: none;
       box-shadow: 0 6px 20px rgba(72, 72, 74, 0.8);
     }
+
+    /* Apple-style loading spinner (like on apple.com login) */
+    .spinner {
+      display: inline-block;
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    #loading-text {
+      font-weight: 600;
+      color: white;
+      font-size: 1.3rem;
+      letter-spacing: 0.02em;
+      user-select: none;
+    }
   </style>
 </head>
 <body>
@@ -156,15 +180,18 @@
       }, 1000);
     }, 3000);
 
-    // Optional: handle button clicks (currently just alert)
+    const menu = document.getElementById('menu-screen');
+
     document.getElementById('yes-btn').addEventListener('click', () => {
-      alert('Launching Apple Developer...');
-      // e.g., window.location.href = 'https://developer.apple.com';
+      // Replace menu content with spinner + loading text
+      menu.innerHTML = `
+        <div class="spinner" aria-label="Loading"></div>
+        <div id="loading-text">Launching Apple Developer...</div>
+      `;
     });
 
     document.getElementById('no-btn').addEventListener('click', () => {
       alert('Canceled.');
-      // e.g., close modal or go back
     });
   </script>
 
