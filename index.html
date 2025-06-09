@@ -8,7 +8,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <meta name="apple-mobile-web-app-title" content="iBoot" />
-  <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" />
+
+  <!-- Shortcut icon and Apple Touch Icon -->
+  <link rel="shortcut icon" href="https://raw.githubusercontent.com/Githubuser102234/Apple-Developer/refs/heads/main/IMG_1015.webp" type="image/webp" />
+  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/Githubuser102234/Apple-Developer/refs/heads/main/IMG_1015.webp" />
 
   <title>iPhone Boot</title>
   <style>
@@ -66,6 +69,7 @@
       letter-spacing: 0.02em;
       line-height: 1.4;
       user-select: none;
+      z-index: 15;
     }
 
     #menu-screen.visible {
@@ -129,34 +133,36 @@
       box-shadow: 0 6px 20px rgba(72, 72, 74, 0.8);
     }
 
-    /* Apple-style loading spinner (like on apple.com login) */
-    .spinner {
-      display: inline-block;
-      width: 48px;
-      height: 48px;
-      border: 4px solid rgba(255, 255, 255, 0.2);
+    /* Apple loading spinner style */
+    #loading-screen {
+      display: none;
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      width: 100%;
+      background: black;
+      justify-content: center;
+      align-items: center;
+      z-index: 20;
+    }
+
+    #loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255, 255, 255, 0.15);
       border-top-color: white;
       border-radius: 50%;
       animation: spin 1s linear infinite;
-      margin-bottom: 20px;
     }
 
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
-
-    #loading-text {
-      font-weight: 600;
-      color: white;
-      font-size: 1.3rem;
-      letter-spacing: 0.02em;
-      user-select: none;
-    }
   </style>
 </head>
 <body>
 
-  <div id="boot-screen">
+  <div id="boot-screen" aria-label="Apple boot screen">
     <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple Logo" />
   </div>
 
@@ -166,6 +172,10 @@
       <button id="yes-btn" type="button">Yes</button>
       <button id="no-btn" type="button">No</button>
     </div>
+  </div>
+
+  <div id="loading-screen" aria-live="polite" aria-label="Loading">
+    <div id="loading-spinner"></div>
   </div>
 
   <script>
@@ -180,17 +190,24 @@
       }, 1000);
     }, 3000);
 
+    const yesBtn = document.getElementById('yes-btn');
+    const noBtn = document.getElementById('no-btn');
     const menu = document.getElementById('menu-screen');
+    const loadingScreen = document.getElementById('loading-screen');
 
-    document.getElementById('yes-btn').addEventListener('click', () => {
-      // Replace menu content with spinner + loading text
-      menu.innerHTML = `
-        <div class="spinner" aria-label="Loading"></div>
-        <div id="loading-text">Launching Apple Developer...</div>
-      `;
+    yesBtn.addEventListener('click', () => {
+      // Hide menu, show loading spinner
+      menu.style.display = 'none';
+      loadingScreen.style.display = 'flex';
+
+      // Simulate loading for 3 seconds then redirect or do something
+      setTimeout(() => {
+        // Example: redirect to Apple Developer site
+        window.location.href = 'https://developer.apple.com';
+      }, 3000);
     });
 
-    document.getElementById('no-btn').addEventListener('click', () => {
+    noBtn.addEventListener('click', () => {
       alert('Canceled.');
     });
   </script>
