@@ -29,6 +29,7 @@
       overflow: hidden;
       -webkit-user-select: none;
       user-select: none;
+      text-align: center;
     }
 
     #boot-screen {
@@ -64,7 +65,6 @@
       width: 100%;
       padding: 20px;
       background: black;
-      text-align: center;
       font-size: 1.3rem;
       letter-spacing: 0.02em;
       line-height: 1.4;
@@ -158,6 +158,17 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+
+    #final-message {
+      display: none;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: white;
+      max-width: 90%;
+      padding: 20px;
+      user-select: none;
+      z-index: 25;
+    }
   </style>
 </head>
 <body>
@@ -178,6 +189,10 @@
     <div id="loading-spinner"></div>
   </div>
 
+  <div id="final-message" role="alert" aria-live="assertive">
+    Your Apple developer account has been disabled and can no longer be used.
+  </div>
+
   <script>
     // After 3 seconds, fade out boot screen and show menu
     setTimeout(() => {
@@ -194,16 +209,23 @@
     const noBtn = document.getElementById('no-btn');
     const menu = document.getElementById('menu-screen');
     const loadingScreen = document.getElementById('loading-screen');
+    const finalMessage = document.getElementById('final-message');
 
     yesBtn.addEventListener('click', () => {
       // Hide menu, show loading spinner
       menu.style.display = 'none';
       loadingScreen.style.display = 'flex';
 
-      // Simulate loading for 3 seconds then redirect or do something
+      // After 3 seconds loading, show final message
       setTimeout(() => {
-        // Example: redirect to Apple Developer site
-        window.location.href = 'https://developer.apple.com';
+        loadingScreen.style.display = 'none';
+        finalMessage.style.display = 'block';
+
+        // After 4 seconds, redirect to Apple App Store
+        setTimeout(() => {
+          window.location.href = 'https://apps.apple.com/us/app/apple-store/id375380948';
+        }, 4000);
+
       }, 3000);
     });
 
